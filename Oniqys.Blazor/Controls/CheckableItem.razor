@@ -1,0 +1,17 @@
+﻿@namespace Oniqys.Blazor.Controls
+@using Oniqys.Blazor.ViewModel
+@inherits ViewComponentBase<Selectable<TItem>>
+@typeparam TItem
+
+<div style="display: block;">
+    <span style="display: inline;">
+        <input type="checkbox" @bind="DataContext.IsSelected" disabled="@(!DataContext.IsEnabled)" />
+        @DataTemplate(DataContext.Content)
+    </span>
+</div>
+
+
+@code {
+    [Parameter]
+    public RenderFragment<TItem> DataTemplate { get; set; }
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oniqys.Blazor.Sample", "Oniqys.Blazor.Sample\Oniqys.Blazor.Sample.csproj", "{DDE90341-908C-4E1D-BB9D-451C2F80AA0D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oniqys.Blazor", "Oniqys.Blazor\Oniqys.Blazor.csproj", "{E7C57F81-CF62-4F79-85C2-C1922660F091}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDE90341-908C-4E1D-BB9D-451C2F80AA0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE90341-908C-4E1D-BB9D-451C2F80AA0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE90341-908C-4E1D-BB9D-451C2F80AA0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE90341-908C-4E1D-BB9D-451C2F80AA0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7C57F81-CF62-4F79-85C2-C1922660F091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7C57F81-CF62-4F79-85C2-C1922660F091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7C57F81-CF62-4F79-85C2-C1922660F091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7C57F81-CF62-4F79-85C2-C1922660F091}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {542A2A99-D8C3-47E6-A0E6-027232EB8E6C}
+	EndGlobalSection
+EndGlobal

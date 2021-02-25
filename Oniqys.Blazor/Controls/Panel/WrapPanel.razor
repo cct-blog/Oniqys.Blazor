@@ -1,0 +1,22 @@
+﻿@namespace Oniqys.Blazor.Controls.Panel
+
+@inherits ViewComponentBase<TItem>
+@typeparam TItem
+
+<ul style="list-style: none;">
+    @foreach (var item in ItemsSource)
+    {
+        <li style="display: inline-block;">
+            @ItemTemplate(item)
+        </li>
+    }
+</ul>
+
+
+@code {
+    [Parameter]
+    public RenderFragment<TItem> ItemTemplate { get; set; }
+
+    [Parameter]
+    public IList<TItem> ItemsSource { get; set; }
+}
