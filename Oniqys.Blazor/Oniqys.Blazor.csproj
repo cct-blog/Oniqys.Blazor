@@ -7,7 +7,7 @@
     <Authors>Reki Yamamoto</Authors>
     <Company />
     <Product>Oniqys Components</Product>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>Oniqys.Blazor.pfx</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/nenaaki/Oniqys.Blazor</PackageProjectUrl>
   </PropertyGroup>
