@@ -1,4 +1,5 @@
 ﻿@namespace Oniqys.Blazor.Controls.Panel
+@using Oniqys.Blazor.ViewModel;
 
 @inherits ViewComponentBase<TItem>
 @typeparam TItem
@@ -18,5 +19,5 @@
     public RenderFragment<TItem> ItemTemplate { get; set; }
 
     [Parameter]
-    public IList<TItem> ItemsSource { get; set; }
+    public ObservableCollection<TItem> ItemsSource { get; set; }
 }

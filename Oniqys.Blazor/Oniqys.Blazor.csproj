@@ -10,6 +10,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Oniqys.Blazor.pfx</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/nenaaki/Oniqys.Blazor</PackageProjectUrl>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   
