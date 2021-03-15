@@ -25,10 +25,10 @@ namespace Oniqys.Blazor.Controls
                 if (_dataContext is INotifyPropertyChanged newValue)
                     newValue.PropertyChanged += OnPropertyChanged;
 
-                OnPropertyChanged(this, null);
+                OnPropertyChanged(this, new PropertyChangedEventArgs(nameof(DataContext)));
             }
         }
 
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs args) => StateHasChanged();
+        private void OnPropertyChanged(object? sender, PropertyChangedEventArgs args) => StateHasChanged();
     }
 }

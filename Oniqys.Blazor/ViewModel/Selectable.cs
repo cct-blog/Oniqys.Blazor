@@ -3,7 +3,7 @@
     /// <summary>
     /// 選択可能なViewModelです。
     /// </summary>
-    public partial class Selectable<TContent> : ViewModelBase
+    public partial class Selectable<TContent> : ContentBase
     {
         // TODO : プロパティは自動生成予定
 

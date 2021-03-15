@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Oniqys.Blazor.ViewModel
+﻿namespace Oniqys.Blazor.ViewModel
 {
-    public class BlockViewModel<TContent> : ViewModelBase
+    public class BlockViewModel<TContent> : ContentBase
     {
-        private TContent _content;
+        private TContent? _content;
 
-        public TContent Content
+        public TContent? Content
         {
             get => _content;
             set

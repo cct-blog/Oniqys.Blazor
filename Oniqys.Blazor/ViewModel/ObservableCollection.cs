@@ -9,11 +9,9 @@ namespace Oniqys.Blazor.ViewModel
     /// 通知型のコレクションです。標準のものとは異なり、Countの変更も通知します、またReset時にクリアされた要素の一覧を閲覧可能です。
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ObservableCollection<T> : IList<T>, INotifyCollectionChanged, INotifyPropertyChanged
+    public class ObservableCollection<T> : ContentBase, IList<T>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         private readonly List<T> _list = new List<T>();
 
@@ -103,9 +101,6 @@ namespace Oniqys.Blazor.ViewModel
         {
             return _list.GetEnumerator();
         }
-
-        protected void OnPropertyChanged(string propertyName)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
             => CollectionChanged?.Invoke(this, args);
