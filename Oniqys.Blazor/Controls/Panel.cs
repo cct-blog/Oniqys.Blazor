@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Oniqys.Blazor.Controls.Layouter;
 using Oniqys.Blazor.ViewModel;
 
 namespace Oniqys.Blazor.Controls
 {
-    public class Panel : ViewComponentBase<ComponentBase>
+    public class Panel<TComponent, TViewModel> : ViewComponentBase<TViewModel>
     {
         [Parameter]
-        public ObservableCollection<ComponentBase> Children { get; set; } = new ObservableCollection<ComponentBase>();
+        public ContentCollection<TComponent> Children { get; set; } = new ContentCollection<TComponent>();
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            Children.CollectionChanged += (s, e) => StateHasChanged();
+            Children.PropertyChanged += (s, e) => StateHasChanged();
+        }
     }
 }

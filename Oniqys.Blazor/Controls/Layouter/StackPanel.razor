@@ -1,7 +1,8 @@
 ﻿@namespace Oniqys.Blazor.Controls.Layouter
 @using Oniqys.Blazor.ViewModel;
 
-@inherits Panel
+@inherits Panel<TComponent, TItem>
+@typeparam TComponent
 @typeparam TItem
 
 <ul style="list-style: none;">

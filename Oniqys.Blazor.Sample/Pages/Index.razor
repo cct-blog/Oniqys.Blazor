@@ -1,22 +1,39 @@
 ﻿@using Oniqys.Blazor.Controls
-@using Oniqys.Blazor.Controls.Panel
+@using Oniqys.Blazor.Controls.Layouter
 @using Oniqys.Blazor.ViewModel
 @using Oniqys.Blazor.Sample.ViewModel;
 @inherits ViewComponentBase<IndexViewModel>
 @page "/"
 
 <p>２つのチェックボックスはIndexViewModelのItemを共有しているので、操作時に自動的に通知を受けて更新する</p>
-<CheckableItem DataContext="@DataContext.Item">
+<View DataContext="@("test")">
+    <DataTemplate>
+        <span>@context</span>
+    </DataTemplate>
+</View>
+
+
+<CheckableItem DataContext="DataContext.Item">
     <DataTemplate>
         <span>@context</span>
     </DataTemplate>
 </CheckableItem>
 
-<CheckableItem DataContext="@DataContext.Item">
+<CheckableItem DataContext="DataContext.Item">
     <DataTemplate>
         <span>@context</span>
     </DataTemplate>
 </CheckableItem>
+
+<ListView Items="DataContext.Items">
+    <ItemTemplate>
+        <CheckableItem DataContext="context">
+            <DataTemplate Context="itemcontext">
+                <span>@itemcontext</span>
+            </DataTemplate>
+        </CheckableItem>
+    </ItemTemplate>
+</ListView>
 
 <p>ここから下は通知を受けるViewに収まっていないので同期しない。</p>
 <p> IsSelected: @DataContext.Item.IsSelected / IsEnabled: @DataContext.Item.IsEnabled </p>

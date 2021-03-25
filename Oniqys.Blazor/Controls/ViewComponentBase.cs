@@ -8,12 +8,15 @@ namespace Oniqys.Blazor.Controls
     /// </summary>
     public abstract class ViewComponentBase<TViewModel> : ComponentBase
     {
-        private TViewModel? _dataContext;
+        private bool _initialized;
+
+        private TViewModel _dataContext;
+
         /// <summary>
         /// ViewModelを取得または設定します。
         /// </summary>
         [Parameter]
-        public TViewModel? DataContext
+        public TViewModel DataContext
         {
             get => _dataContext;
             set
@@ -29,6 +32,16 @@ namespace Oniqys.Blazor.Controls
             }
         }
 
-        private void OnPropertyChanged(object? sender, PropertyChangedEventArgs args) => StateHasChanged();
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (_initialized)
+                StateHasChanged();
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            _initialized = true;
+        }
     }
 }

@@ -5,13 +5,19 @@
 
 <div style="display: block;">
     <span style="display: inline;">
-        <input type="checkbox" @bind="DataContext.IsSelected" disabled="@(!DataContext.IsEnabled)" />
-        @DataTemplate(DataContext.Content)
+        @if (DataContext != null)
+        {
+            <input type="checkbox" @bind="DataContext.IsSelected" disabled="@(!DataContext.IsEnabled)" />
+            if (DataTemplate != null)
+            {
+                <View DataContext="@DataContext.Content" DataTemplate="@(DataTemplate!)" />
+            }
+        }
     </span>
 </div>
 
 
 @code {
     [Parameter]
-    public RenderFragment<TItem>? DataTemplate { get; set; }
+    public RenderFragment<TItem> DataTemplate { get; set; }
 }

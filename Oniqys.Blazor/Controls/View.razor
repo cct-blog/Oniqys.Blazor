@@ -1,11 +1,12 @@
 ﻿@namespace Oniqys.Blazor.Controls
-@using Oniqys.Blazor.ViewModel
-@inherits ViewComponentBase<TItem>
-@typeparam TItem
+@typeparam TViewModel
 
 @DataTemplate(DataContext)
 
 @code {
     [Parameter]
-    public RenderFragment<TItem>? DataTemplate { get; set; }
+    public RenderFragment<TViewModel> DataTemplate { get; set; }
+
+    [Parameter]
+    public TViewModel DataContext { get; set; }
 }

@@ -1,0 +1,20 @@
+﻿@using Oniqys.Blazor.Controls.Layouter
+@using Oniqys.Blazor.ViewModel
+
+@inherits ItemsControl<TItem>
+@typeparam TItem
+
+
+<ul style="list-style: none;">
+    @foreach (var child in Items)
+    {
+        <li style="margin-left: 0px;">
+            @ItemTemplate(child)
+        </li>
+    }
+</ul>
+
+
+@code {
+
+}

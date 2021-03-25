@@ -6,14 +6,17 @@ using System.ComponentModel;
 namespace Oniqys.Blazor.ViewModel
 {
     /// <summary>
-    /// 通知型のコレクションです。標準のものとは異なり、Countの変更も通知します、またReset時にクリアされた要素の一覧を閲覧可能です。
+    /// 通知型のコレクションです。
     /// </summary>
+    /// <remarks>
+    /// Countの変更も通知します。またReset時にクリアされた要素の一覧を閲覧可能です。
+    /// </remarks>
     /// <typeparam name="T"></typeparam>
-    public class ObservableCollection<T> : ContentBase, IList<T>, INotifyCollectionChanged, INotifyPropertyChanged
+    public class ContentCollection<T> : ContentBase, IList<T>, INotifyCollectionChanged, INotifyPropertyChanged
     {
-        public event NotifyCollectionChangedEventHandler? CollectionChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        private readonly List<T> _list = new List<T>();
+        private readonly List<T> _list = new();
 
         public T this[int index]
         {
@@ -34,7 +37,7 @@ namespace Oniqys.Blazor.ViewModel
         {
             var count = _list.Count;
             _list.Add(item);
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, count));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
             OnPropertyChanged(nameof(Count));
         }
 
@@ -42,7 +45,7 @@ namespace Oniqys.Blazor.ViewModel
         {
             var items = _list.ToArray();
             _list.Clear();
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset, new List<T>(), new List<T>(items), 0));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new List<T>(items)));
             OnPropertyChanged(nameof(Count));
         }
 
