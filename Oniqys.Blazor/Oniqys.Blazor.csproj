@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.3-Preview</Version>
+    <Version>0.0.4-Preview</Version>
     <Authors>Reki Yamamoto</Authors>
     <Company />
     <Product>Oniqys Components</Product>
