@@ -10,7 +10,9 @@
             <input type="checkbox" @bind="DataContext.IsSelected" disabled="@(!DataContext.IsEnabled)" />
             @if (DataTemplate != null)
             {
-                <View DataContext="@DataContext.Content" DataTemplate="@DataTemplate" />
+                <View DataContext="@DataContext.Content">
+                    @DataTemplate(DataContext.Content)
+                </View>
             }
         }
     </span>

@@ -7,9 +7,30 @@
 
 <p>２つのチェックボックスはIndexViewModelのItemを共有しているので、操作時に自動的に通知を受けて更新する</p>
 <View DataContext="@("test")">
-    <DataTemplate>
-        <span>@context</span>
-    </DataTemplate>
+    <span>@context</span>
+</View>
+
+
+<View DataContext="@("test1234")">
+    <div>
+        <DataTemplate TViewModel="string" Context="item" DataContext="context">
+            <span>string : @item</span>
+        </DataTemplate>
+        <DataTemplate TViewModel="Selectable<string>" Context="item" DataContext="context">
+            <span>Selectable : @item.Content</span>
+        </DataTemplate>
+    </div>
+</View>
+
+<View DataContext="@(new Selectable<string> { Content = "test3456" })">
+    <div>
+        <DataTemplate TViewModel="string" Context="item" DataContext="context">
+            <span>string : @item</span>
+        </DataTemplate>
+        <DataTemplate TViewModel="Selectable<string>" Context="item" DataContext="context">
+            <span>Selectable : @item.Content</span>
+        </DataTemplate>
+    </div>
 </View>
 
 
