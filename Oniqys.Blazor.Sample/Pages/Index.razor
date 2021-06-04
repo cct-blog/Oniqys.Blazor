@@ -4,7 +4,6 @@
 @inherits ViewComponentBase<IndexViewModel>
 @page "/"
 
-<p>２つのチェックボックスはIndexViewModelのItemを共有しているので、操作時に自動的に通知を受けて更新する</p>
 <View DataContext="@("test")">
     <span>@context</span>
 </View>
@@ -32,6 +31,7 @@
     </div>
 </View>
 
+<p>２つのチェックボックスはIndexViewModelのItemを共有しているので、操作時に自動的に通知を受けて更新する</p>
 
 <CheckableItem DataContext="DataContext.Item">
     <DataTemplate>
@@ -54,6 +54,8 @@
         </CheckableItem>
     </ItemTemplate>
 </ListView>
+
+<Button DataContext="DataContext.AddLineButton">追加</Button>
 
 <p>ここから下は通知を受けるViewに収まっていないので同期しない。</p>
 <p> IsSelected: @DataContext.Item.IsSelected / IsEnabled: @DataContext.Item.IsEnabled </p>

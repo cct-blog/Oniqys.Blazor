@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Oniqys.Blazor.ViewModel;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Collections.Specialized;
 
 namespace Oniqys.Blazor.Controls
 {
@@ -10,28 +9,29 @@ namespace Oniqys.Blazor.Controls
         [Parameter]
         public RenderFragment<TItem> ItemTemplate { get; set; }
 
-        private ContentCollection<TItem> _items = new ContentCollection<TItem>();
+        private IList<TItem> _items;
 
         [Parameter]
-        public IList<TItem> Items { get; set; }
-
-        public ItemsControl()
+        public IList<TItem> Items
         {
-            _items.CollectionChanged += (s, e) => StateHasChanged();
-        }
-
-        protected override Task OnParametersSetAsync()
-        {
-            _items.Clear();
-            if (Items != null)
+            get => _items;
+            set
             {
-                foreach (var item in Items)
+                if (_items is INotifyCollectionChanged oldValue)
                 {
-                    _items.Add(item);
+                    oldValue.CollectionChanged -= OnCollectionChanged;
+                }
+                _items = value;
+                if (_items is INotifyCollectionChanged newValue)
+                {
+                    newValue.CollectionChanged += OnCollectionChanged;
                 }
             }
+        }
 
-            return base.OnParametersSetAsync();
+        void OnCollectionChanged(object s, NotifyCollectionChangedEventArgs e)
+        {
+            StateHasChanged();
         }
     }
 }

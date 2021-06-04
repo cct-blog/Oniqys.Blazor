@@ -35,7 +35,6 @@ namespace Oniqys.Blazor.ViewModel
 
         public void Add(T item)
         {
-            var count = _list.Count;
             _list.Add(item);
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
             OnPropertyChanged(nameof(Count));

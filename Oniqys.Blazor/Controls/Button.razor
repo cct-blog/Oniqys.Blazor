@@ -1,0 +1,5 @@
+﻿@namespace Oniqys.Blazor.Controls
+@using Oniqys.Blazor.ViewModel
+@inherits ButtonBase<Clickable>
+
+    <button class="@Class" @onclick="OnClick">@ChildContent(DataContext)</button>

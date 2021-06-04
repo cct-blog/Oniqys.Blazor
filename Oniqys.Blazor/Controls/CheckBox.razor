@@ -1,0 +1,5 @@
+﻿@namespace Oniqys.Blazor.Controls
+@using Oniqys.Blazor.ViewModel
+@inherits ButtonBase<Selectable>
+
+<input type="checkbox" @bind="DataContext.IsSelected" disabled="@(!IsEnabled)" @onclick="OnClick" />
