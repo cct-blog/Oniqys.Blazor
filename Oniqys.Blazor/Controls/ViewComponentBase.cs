@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Oniqys.Blazor.Controls
 {
@@ -19,29 +21,42 @@ namespace Oniqys.Blazor.Controls
         public TViewModel DataContext
         {
             get => _dataContext;
-            set
-            {
-                if (_dataContext is INotifyPropertyChanged oldValue)
-                    oldValue.PropertyChanged -= OnPropertyChanged;
-
-                _dataContext = value;
-                if (_dataContext is INotifyPropertyChanged newValue)
-                    newValue.PropertyChanged += OnPropertyChanged;
-
-                OnPropertyChanged(this, new PropertyChangedEventArgs(nameof(DataContext)));
-            }
-        }
-
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (_initialized)
-                StateHasChanged();
+            set => UpdateValue(ref _dataContext, value);
         }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
             _initialized = true;
+        }
+
+        protected void UpdateValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (field is INotifyPropertyChanged oldValue)
+                oldValue.PropertyChanged -= OnPropertyChanged;
+
+            if (field is INotifyCollectionChanged oldCollection)
+                oldCollection.CollectionChanged -= OnCollectionChanged;
+
+            field = value;
+
+            if (field is INotifyCollectionChanged newCollection)
+                newCollection.CollectionChanged -= OnCollectionChanged;
+
+            if (field is INotifyPropertyChanged newValue)
+                newValue.PropertyChanged += OnPropertyChanged;
+
+            OnPropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs _) => Invalidate();
+
+        protected void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs _) => Invalidate();
+
+        protected void Invalidate()
+        {
+            if (_initialized)
+                StateHasChanged();
         }
     }
 }

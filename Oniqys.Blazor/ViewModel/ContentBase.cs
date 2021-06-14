@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace Oniqys.Blazor.ViewModel
 {
+    /// <summary>
+    /// 変更通知を持つViewModel全ての基底クラス
+    /// </summary>
     public abstract class ContentBase : INotifyPropertyChanged
     {
         protected bool ObjectChangeProcess<T>(ref T field, T value, [CallerMemberName] string propertyName = null)

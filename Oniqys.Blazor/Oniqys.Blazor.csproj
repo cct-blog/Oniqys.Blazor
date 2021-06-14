@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.8-Preview</Version>
+    <Version>0.0.9-Preview</Version>
     <Authors>Reki Yamamoto</Authors>
     <Company />
     <Product>Oniqys Components</Product>
@@ -11,6 +11,8 @@
     <AssemblyOriginatorKeyFile>Oniqys.Blazor.pfx</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/nenaaki/Oniqys.Blazor</PackageProjectUrl>
     <Nullable>disable</Nullable>
+    <Copyright>Reki Yamamoto</Copyright>
+    <Description>Blazor Web Assembly - MVVM</Description>
   </PropertyGroup>
 
   
