@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
-using Oniqys.Blazor.ViewModel;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Components;
+using Oniqys.Blazor.ViewModel;
 
 namespace Oniqys.Blazor.Controls
 {
@@ -57,7 +57,7 @@ namespace Oniqys.Blazor.Controls
             field = value;
 
             if (field is INotifyCollectionChanged newCollection)
-                newCollection.CollectionChanged -= OnCollectionChanged;
+                newCollection.CollectionChanged += OnCollectionChanged;
 
             if (field is INotifyPropertyChanged newValue)
                 newValue.PropertyChanged += OnPropertyChanged;

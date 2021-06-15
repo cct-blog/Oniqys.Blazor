@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Components;
+using Oniqys.Blazor.ViewModel;
 
 namespace Oniqys.Blazor.Controls
 {
-    public partial class ItemsControl<TItem> : ViewComponentBase<TItem>
+    public class ItemsControl<TItem> : ViewComponentBase<TItem>
     {
         [Parameter]
         public RenderFragment<TItem> ItemTemplate { get; set; }
@@ -16,6 +16,11 @@ namespace Oniqys.Blazor.Controls
         {
             get => _items;
             set => UpdateValue(ref _items, value);
+        }
+
+        public ItemsControl()
+        {
+            Items = new ContentCollection<TItem>();
         }
     }
 }
