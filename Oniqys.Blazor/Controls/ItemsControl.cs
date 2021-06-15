@@ -15,23 +15,7 @@ namespace Oniqys.Blazor.Controls
         public IList<TItem> Items
         {
             get => _items;
-            set
-            {
-                if (_items is INotifyCollectionChanged oldValue)
-                {
-                    oldValue.CollectionChanged -= OnCollectionChanged;
-                }
-                _items = value;
-                if (_items is INotifyCollectionChanged newValue)
-                {
-                    newValue.CollectionChanged += OnCollectionChanged;
-                }
-            }
-        }
-
-        void OnCollectionChanged(object s, NotifyCollectionChangedEventArgs e)
-        {
-            StateHasChanged();
+            set => UpdateValue(ref _items, value);
         }
     }
 }

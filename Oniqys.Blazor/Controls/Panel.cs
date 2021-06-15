@@ -18,10 +18,5 @@ namespace Oniqys.Blazor.Controls
         {
             Children = new ContentCollection<TComponent>();
         }
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-        }
     }
 }

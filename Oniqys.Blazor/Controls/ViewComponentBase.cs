@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Oniqys.Blazor.ViewModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -22,6 +23,21 @@ namespace Oniqys.Blazor.Controls
         {
             get => _dataContext;
             set => UpdateValue(ref _dataContext, value);
+        }
+
+        /// <summary>
+        /// <see cref="Bindable{T}"/>のValueをバインドします。
+        /// </summary>
+        /// <remarks>
+        /// 1つの値を複数のコンポーネントで共有する場合に使用します。
+        /// </remarks>
+        /// <typeparam name="T">値型</typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public T Bind<T>(Bindable<T> source)
+            where T : struct
+        {
+            return source?.Value ?? default;
         }
 
         protected override void OnInitialized()
