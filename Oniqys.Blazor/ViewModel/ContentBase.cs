@@ -25,8 +25,8 @@ namespace Oniqys.Blazor.ViewModel
         {
             if (field.Equals(value)) return false;
 
-            OnPropertyChanged(propertyName);
             field = value;
+            OnPropertyChanged(propertyName);
             return true;
         }
 
@@ -35,8 +35,8 @@ namespace Oniqys.Blazor.ViewModel
         {
             if (EqualityComparer<T>.Default.Equals(field, value)) return false;
 
-            OnPropertyChanged(propertyName);
             field = value;
+            OnPropertyChanged(propertyName);
             return true;
         }
 
