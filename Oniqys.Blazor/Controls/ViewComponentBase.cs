@@ -1,7 +1,9 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Components;
+using Oniqys.Blazor.Core;
 using Oniqys.Blazor.ViewModel;
 
 namespace Oniqys.Blazor.Controls
@@ -15,6 +17,8 @@ namespace Oniqys.Blazor.Controls
 
         private TViewModel _dataContext;
 
+        private WeakPropertyChangedEvent _propertyChanged;
+
         /// <summary>
         /// ViewModelを取得または設定します。
         /// </summary>
@@ -22,22 +26,22 @@ namespace Oniqys.Blazor.Controls
         public TViewModel DataContext
         {
             get => _dataContext;
-            set => UpdateValue(ref _dataContext, value);
+            set => UpdateDataContext(value);
         }
 
-        /// <summary>
-        /// <see cref="Bindable{T}"/>のValueをバインドします。
-        /// </summary>
-        /// <remarks>
-        /// 1つの値を複数のコンポーネントで共有する場合に使用します。
-        /// </remarks>
-        /// <typeparam name="T">値型</typeparam>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public T Bind<T>(Bindable<T> source)
-            where T : struct
+        private void UpdateDataContext(TViewModel value)
         {
-            return source?.Value ?? default;
+            if (_propertyChanged != null)
+            {
+                _propertyChanged.Remove();
+                _propertyChanged = null;
+            }
+
+            UpdateValue(ref _dataContext, value);
+            if (_dataContext != null)
+            {
+                _propertyChanged = WeakPropertyChangedEvent.Create(_dataContext, OnPropertyChanged);
+            }
         }
 
         protected override void OnInitialized()
@@ -48,26 +52,11 @@ namespace Oniqys.Blazor.Controls
 
         protected void UpdateValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            if (field is INotifyPropertyChanged oldValue)
-                oldValue.PropertyChanged -= OnPropertyChanged;
-
-            if (field is INotifyCollectionChanged oldCollection)
-                oldCollection.CollectionChanged -= OnCollectionChanged;
-
             field = value;
-
-            if (field is INotifyCollectionChanged newCollection)
-                newCollection.CollectionChanged += OnCollectionChanged;
-
-            if (field is INotifyPropertyChanged newValue)
-                newValue.PropertyChanged += OnPropertyChanged;
-
-            OnPropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            Invalidate();
         }
 
         protected void OnPropertyChanged(object sender, PropertyChangedEventArgs _) => Invalidate();
-
-        protected void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs _) => Invalidate();
 
         protected void Invalidate()
         {
