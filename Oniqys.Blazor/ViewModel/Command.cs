@@ -11,7 +11,7 @@ namespace Oniqys.Blazor.ViewModel
 
         public Command(Func<T, Task> execute) => _execute = execute;
 
-        public override Task Execute(T parameter) => _execute(Parameter);
+        public override async Task ExecuteAsync(T parameter) => await _execute(Parameter);
     }
 
     public class Command : CommandBase
@@ -22,7 +22,6 @@ namespace Oniqys.Blazor.ViewModel
 
         public Command(Func<Task> execute) => _execute = execute;
 
-
-        public override Task Execute() => _execute();
+        public override async Task ExecuteAsync() => await _execute();
     }
 }

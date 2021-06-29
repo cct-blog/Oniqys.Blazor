@@ -13,7 +13,7 @@ namespace Oniqys.Blazor.ViewModel
             set => ValueChangeProcess(ref _canExecute, value);
         }
 
-        public abstract Task Execute(T parameter);
+        public abstract Task ExecuteAsync(T parameter);
     }
 
     public abstract class CommandBase : ContentBase
@@ -25,6 +25,6 @@ namespace Oniqys.Blazor.ViewModel
             set => ValueChangeProcess(ref _canExecute, value);
         }
 
-        public abstract Task Execute();
+        public abstract Task ExecuteAsync();
     }
 }

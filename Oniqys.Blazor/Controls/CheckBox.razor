@@ -2,4 +2,4 @@
 @using Oniqys.Blazor.ViewModel
 @inherits ButtonBase<Selectable>
 
-<input type="checkbox" @bind="DataContext.IsSelected" disabled="@(!IsEnabled)" @onclick="OnClick" />
+<input type="checkbox" @bind="DataContext.IsSelected" disabled="@(!IsEnabled)" @onclick="OnClickAsync" />
