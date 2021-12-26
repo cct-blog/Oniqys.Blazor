@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.10-Preview</Version>
+    <Version>0.0.11-Preview</Version>
     <Authors>Reki Yamamoto</Authors>
     <Company />
     <Product>Oniqys Components</Product>
@@ -14,11 +14,13 @@
     <Copyright>Reki Yamamoto</Copyright>
     <Description>Blazor Web Assembly - MVVM</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   
   <ItemGroup>
     <SupportedPlatform Include="browser" />
+    <Using Include="Oniqys.Blazor.ViewModel"/>
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oniqys.Blazor.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -38,25 +39,26 @@ namespace Oniqys.Blazor.Core
         protected abstract void Remove(T source);
     }
 
-    public sealed class WeakPropertyChangedEvent : WeakEventBase<object, PropertyChangedEventArgs>
+    public sealed class WeakPropertyChangedEvent : WeakEventBase<ContentBase, PropertyChangedEventArgs>
     {
-        private WeakPropertyChangedEvent(object source, Action<object, PropertyChangedEventArgs> handler) : base(source, handler)
+        private WeakPropertyChangedEvent(ContentBase source, Action<object, PropertyChangedEventArgs> handler) : base(source, handler)
             => ((INotifyPropertyChanged)source).PropertyChanged += Handle;
 
-        protected override void Remove(object source) => ((INotifyPropertyChanged)source).PropertyChanged -= Handle;
+        protected override void Remove(ContentBase source) => ((INotifyPropertyChanged)source).PropertyChanged -= Handle;
 
-        static public WeakPropertyChangedEvent Create(object source, Action<object, PropertyChangedEventArgs> handler)
-            => source is INotifyPropertyChanged ? new WeakPropertyChangedEvent(source, handler) : null;
+        static public WeakPropertyChangedEvent Create(ContentBase source, Action<object, PropertyChangedEventArgs> handler)
+            => new WeakPropertyChangedEvent(source, handler);
     }
 
-    public class WeakCollectionChangedEvent : WeakEventBase<object, NotifyCollectionChangedEventArgs>
+    public class WeakCollectionChangedEvent<T> : WeakEventBase<ContentCollection<T>, NotifyCollectionChangedEventArgs>
+        where T : ContentBase
     {
-        private WeakCollectionChangedEvent(object source, Action<object, NotifyCollectionChangedEventArgs> handler) : base(source, handler)
+        private WeakCollectionChangedEvent(ContentCollection<T> source, Action<ContentCollection<T>, NotifyCollectionChangedEventArgs> handler) : base(source, handler)
             => ((INotifyCollectionChanged)source).CollectionChanged += Handle;
 
-        protected override void Remove(object source) => ((INotifyCollectionChanged)source).CollectionChanged -= Handle;
+        protected override void Remove(ContentCollection<T> source) => ((INotifyCollectionChanged)source).CollectionChanged -= Handle;
 
-        static public WeakCollectionChangedEvent Create(object source, Action<object, NotifyCollectionChangedEventArgs> handler)
-            => source is INotifyCollectionChanged ? new WeakCollectionChangedEvent(source, handler) : null;
+        static public WeakCollectionChangedEvent<T> Create(ContentCollection<T> source, Action<ContentCollection<T>, NotifyCollectionChangedEventArgs> handler)
+            => new WeakCollectionChangedEvent<T>(source, handler);
     }
 }

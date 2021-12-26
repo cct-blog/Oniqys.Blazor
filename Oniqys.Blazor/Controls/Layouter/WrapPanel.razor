@@ -1,8 +1,9 @@
 ﻿@namespace Oniqys.Blazor.Controls.Layouter
+@using Oniqys.Blazor.ViewModel
 
 @inherits Panel<TComponent, TItem>
-@typeparam TComponent
-@typeparam TItem
+@typeparam TComponent where TComponent: ViewComponentBase<TItem>
+@typeparam TItem where TItem: ContentBase
 
 <ul style="list-style: none;">
     @foreach (var child in Children)

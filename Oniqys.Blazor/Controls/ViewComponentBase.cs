@@ -12,6 +12,7 @@ namespace Oniqys.Blazor.Controls
     /// MVVMのViewとなるコントロール
     /// </summary>
     public abstract class ViewComponentBase<TViewModel> : ComponentBase
+        where TViewModel : class
     {
         private bool _initialized;
 
@@ -38,9 +39,9 @@ namespace Oniqys.Blazor.Controls
             }
 
             UpdateValue(ref _dataContext, value);
-            if (_dataContext != null)
+            if (_dataContext is ContentBase contentBase)
             {
-                _propertyChanged = WeakPropertyChangedEvent.Create(_dataContext, OnPropertyChanged);
+                _propertyChanged = WeakPropertyChangedEvent.Create(contentBase, OnPropertyChanged);
             }
         }
 

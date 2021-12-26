@@ -34,7 +34,7 @@
 <p>２つのチェックボックスはIndexViewModelのItemを共有しているので、操作時に自動的に通知を受けて更新する</p>
 
 <CheckableItem DataContext="DataContext.Item">
-    <DataTemplate>
+    <DataTemplate Context="context">
         <span>@context</span>
     </DataTemplate>
 </CheckableItem>
@@ -45,7 +45,7 @@
     </DataTemplate>
 </CheckableItem>
 
-<ListView Items="DataContext.Items">
+<ListView Items="DataContext.Items" TItem="Selectable<string>">
     <ItemTemplate>
         <CheckableItem DataContext="context">
             <DataTemplate Context="itemcontext">

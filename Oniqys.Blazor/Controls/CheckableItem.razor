@@ -7,7 +7,7 @@
     <span style="display: inline;">
         @if (DataContext != null)
         {
-            <CheckBox DataContext="@(DataContext as Selectable)" />
+            <CheckBox DataContext="@DataContext" />
             @if (DataTemplate != null)
             {
                 <View DataContext="@DataContext.Content">

@@ -1,3 +1,4 @@
+global using Oniqys.Blazor.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

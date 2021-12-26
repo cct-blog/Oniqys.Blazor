@@ -7,22 +7,23 @@ using Oniqys.Blazor.ViewModel;
 namespace Oniqys.Blazor.Controls
 {
     public class ItemsControl<TItem> : ViewComponentBase<TItem>
+        where TItem : ContentBase
     {
         [Parameter]
         public RenderFragment<TItem> ItemTemplate { get; set; }
 
-        private IList<TItem> _items;
+        private ContentCollection<TItem> _items;
 
-        private WeakCollectionChangedEvent _collectionChanged;
+        private WeakCollectionChangedEvent<TItem> _collectionChanged;
 
         [Parameter]
-        public IList<TItem> Items
+        public ContentCollection<TItem> Items
         {
             get => _items;
             set => UpdateItems(ref _items, value);
         }
 
-        private void UpdateItems(ref IList<TItem> items, IList<TItem> value)
+        private void UpdateItems(ref ContentCollection<TItem> items, ContentCollection<TItem> value)
         {
             if (_collectionChanged != null)
             {
@@ -33,7 +34,7 @@ namespace Oniqys.Blazor.Controls
             UpdateValue(ref items, value);
             if (_items != null)
             {
-                _collectionChanged = WeakCollectionChangedEvent.Create(_items, OnCollectionChanged);
+                _collectionChanged = WeakCollectionChangedEvent<TItem>.Create(_items, OnCollectionChanged);
             }
         }
 

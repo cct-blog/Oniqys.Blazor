@@ -9,7 +9,7 @@ namespace Oniqys.Blazor.Sample.ViewModel
 
         public Selectable<string> Item { get; set; } = new Selectable<string> { IsSelected = true, IsEnabled = true, Content = "Test" };
 
-        public IList<Selectable<string>> Items { get; set; } = new ContentCollection<Selectable<string>>
+        public ContentCollection<Selectable<string>> Items { get; set; } = new ContentCollection<Selectable<string>>
         {
             new Selectable<string> { IsSelected = true, IsEnabled = true, Content = "Test1" },
             new Selectable<string> { IsSelected = true, IsEnabled = false, Content = "Test2" },
