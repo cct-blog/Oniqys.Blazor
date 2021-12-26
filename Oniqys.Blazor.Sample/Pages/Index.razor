@@ -11,22 +11,27 @@
 
 <View DataContext="@("test1234")">
     <div>
-        <DataTemplate TViewModel="string" Context="item" DataContext="context">
+        <DataTemplate DataType="string" Context="item" DataContext="context">
             <span>string : @item</span>
         </DataTemplate>
-        <DataTemplate TViewModel="Selectable<string>" Context="item" DataContext="context">
-            <span>Selectable : @item.Content</span>
+        <DataTemplate DataType="Selectable<string>" Context="item" DataContext="context">
+            <span>Selectable : @item</span>
         </DataTemplate>
     </div>
 </View>
 
 <View DataContext="@(new Selectable<string> { Content = "test3456" })">
     <div>
-        <DataTemplate TViewModel="string" Context="item" DataContext="context">
+        <DataTemplate DataType="string" Context="item" DataContext="context">
             <span>string : @item</span>
         </DataTemplate>
-        <DataTemplate TViewModel="Selectable<string>" Context="item" DataContext="context">
-            <span>Selectable : @item.Content</span>
+        <DataTemplate DataType="Selectable<string>" Context="item" DataContext="context">
+            <span>Selectable : @item / @item.IsSelected.ToString() </span>
+            <CheckableItem DataContext=@item>
+                <DataTemplate Context="value">
+                    <span>@value</span>
+                </DataTemplate>
+            </CheckableItem>
         </DataTemplate>
     </div>
 </View>
