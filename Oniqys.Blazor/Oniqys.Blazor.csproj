@@ -20,11 +20,12 @@
   
   <ItemGroup>
     <SupportedPlatform Include="browser" />
-    <Using Include="Oniqys.Blazor.ViewModel"/>
+    <Using Include="Oniqys.Blazor.ViewModel" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.3" />
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
   </ItemGroup>
 
 </Project>
