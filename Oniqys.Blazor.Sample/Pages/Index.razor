@@ -2,69 +2,75 @@
 @using Oniqys.Blazor.ViewModel
 @using Oniqys.Blazor.Sample.ViewModel
 @inherits ViewComponentBase<IndexViewModel>
+@inject IndexViewModel viewModel
 @page "/"
+
+<h2>Oniqys.Blazor( Blazor WebAssembly x MVVM )のサンプル</h2>
+
+<hr/>
+<p>最も簡単なView</p>
 
 <View DataContext="@("test")">
     <span>@context</span>
 </View>
-
-
-<View DataContext="@("test1234")">
-    <div>
-        <DataTemplate DataType="string" Context="item" DataContext="context">
-            <span>string : @item</span>
-        </DataTemplate>
-        <DataTemplate DataType="Selectable<string>" Context="item" DataContext="context">
-            <span>Selectable : @item</span>
-        </DataTemplate>
-    </div>
-</View>
-
-<View DataContext="@(new Selectable<string> { Content = "test3456" })">
-    <div>
-        <DataTemplate DataType="string" Context="item" DataContext="context">
-            <span>string : @item</span>
-        </DataTemplate>
-        <DataTemplate DataType="Selectable<string>" Context="item" DataContext="context">
-            <span>Selectable : @item / @item.IsSelected.ToString() </span>
-            <CheckableItem DataContext=@item>
-                <DataTemplate Context="value">
-                    <span>@value</span>
-                </DataTemplate>
-            </CheckableItem>
-        </DataTemplate>
-    </div>
-</View>
+<hr/>
 
 <p>２つのチェックボックスはIndexViewModelのItemを共有しているので、操作時に自動的に通知を受けて更新する</p>
 
-<CheckableItem DataContext="DataContext.Item">
-    <DataTemplate Context="context">
-        <span>@context</span>
-    </DataTemplate>
+<CheckableItem DataContext=@DataContext.TestItem >
+    <span>@context.Content</span>
 </CheckableItem>
 
-<CheckableItem DataContext="DataContext.Item">
-    <DataTemplate>
-        <span>@context</span>
-    </DataTemplate>
+<CheckableItem DataContext=@DataContext.TestItem >
+    <span>@context.Content</span>
 </CheckableItem>
 
-<ListView Items="DataContext.Items" TItem="Selectable<string>">
+<p>簡単なデータテンプレートの例</p>
+
+<div>
+    <View DataContext=@DataContext.TestItem2>
+        <DataTemplate DataType="string" Context="item" DataContext="context">
+            <span>string : @item</span>
+        </DataTemplate>
+        <DataTemplate DataType="Selectable<string>" Context="item" DataContext="context">
+            <CheckableItem DataContext=@item Context="itemContext">
+                <span>@itemContext.Content</span>
+            </CheckableItem>
+        </DataTemplate>
+    </View>
+</div>
+
+
+<Button DataContext="DataContext.ChangeDataButton">データ変更</Button>
+
+<hr/>
+
+<p>モデルのデータと連動するリストボックス</p>
+
+<ListView Items="@DataContext.Items" TItem="Selectable<string>">
     <ItemTemplate>
-        <CheckableItem DataContext="context">
-            <DataTemplate Context="itemcontext">
-                <span>@itemcontext</span>
-            </DataTemplate>
-        </CheckableItem>
+        <DataTemplate DataType="Selectable<string>" Context="item" DataContext="context">
+            <CheckableItem DataContext=@item Context="itemContext">
+                <span>@itemContext.Content</span>
+            </CheckableItem>
+        </DataTemplate>
     </ItemTemplate>
 </ListView>
 
+<input type="text" @bind="DataContext.AnimalName"/> 
+<Button DataContext="DataContext.AddLineButton">checkbox追加</Button>
 
-<Button DataContext="DataContext.AddLineButton">追加</Button>
+<View DataContext=@DataContext.SelectedItems>
+    <p>選択されたアイテム(View.DataContextの変更に動的に連動する)。DataTemplateは必須ではない。</p>
+    @string.Join(',', DataContext.SelectedItems)
+</View>
+
+
+
+<hr/>
 
 <p>ここから下は通知を受けるViewに収まっていないので同期しない。</p>
-<p> IsSelected: @DataContext.Item.IsSelected / IsEnabled: @DataContext.Item.IsEnabled </p>
+<p> IsSelected: @DataContext.TestItem.IsSelected / IsEnabled: @DataContext.TestItem.IsEnabled </p>
 
 <button @onclick="() => StateHasChanged()">画面更新</button>
 
@@ -73,6 +79,6 @@
     {
         base.OnInitialized();
 
-        DataContext = new IndexViewModel();
+        DataContext = viewModel;
     }
 }
