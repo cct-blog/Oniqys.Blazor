@@ -4,15 +4,21 @@ using Oniqys.Blazor.ViewModel;
 namespace Oniqys.Blazor.Controls
 {
     public class Panel<TComponent, TViewModel> : ViewComponentBase<TViewModel>
+        where TComponent : ViewComponentBase<TViewModel>
+        where TViewModel : ContentBase
     {
-        [Parameter]
-        public ContentCollection<TComponent> Children { get; set; } = new ContentCollection<TComponent>();
+        private ContentCollection<TComponent> _children;
 
-        protected override void OnInitialized()
+        [Parameter]
+        public ContentCollection<TComponent> Children
         {
-            base.OnInitialized();
-            Children.CollectionChanged += (s, e) => StateHasChanged();
-            Children.PropertyChanged += (s, e) => StateHasChanged();
+            get => _children;
+            set => UpdateValue(ref _children, value);
+        }
+
+        public Panel()
+        {
+            Children = new ContentCollection<TComponent>();
         }
     }
 }

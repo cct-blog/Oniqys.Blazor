@@ -1,37 +1,48 @@
-﻿using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using Microsoft.AspNetCore.Components;
+using Oniqys.Blazor.Core;
+using Oniqys.Blazor.ViewModel;
 
 namespace Oniqys.Blazor.Controls
 {
-    public partial class ItemsControl<TItem> : ViewComponentBase<TItem>
+    public class ItemsControl<DataType> : ViewComponentBase<DataType>
+        where DataType : ContentBase
     {
         [Parameter]
-        public RenderFragment<TItem> ItemTemplate { get; set; }
+        public RenderFragment<DataType> ItemTemplate { get; set; }
 
-        private IList<TItem> _items;
+        private ContentCollection<DataType> _items;
+
+        private WeakCollectionChangedEvent<DataType> _collectionChanged;
 
         [Parameter]
-        public IList<TItem> Items
+        public ContentCollection<DataType> Items
         {
             get => _items;
-            set
+            set => UpdateItems(ref _items, value);
+        }
+
+        private void UpdateItems(ref ContentCollection<DataType> items, ContentCollection<DataType> value)
+        {
+            if (_collectionChanged != null)
             {
-                if (_items is INotifyCollectionChanged oldValue)
-                {
-                    oldValue.CollectionChanged -= OnCollectionChanged;
-                }
-                _items = value;
-                if (_items is INotifyCollectionChanged newValue)
-                {
-                    newValue.CollectionChanged += OnCollectionChanged;
-                }
+                _collectionChanged.Remove();
+                _collectionChanged = null;
+            }
+
+            UpdateValue(ref items, value);
+            if (_items != null)
+            {
+                _collectionChanged = WeakCollectionChangedEvent<DataType>.Create(_items, OnCollectionChanged);
             }
         }
 
-        void OnCollectionChanged(object s, NotifyCollectionChangedEventArgs e)
+        private void OnCollectionChanged(object source, NotifyCollectionChangedEventArgs args) => Invalidate();
+
+        public ItemsControl()
         {
-            StateHasChanged();
+            Items = new ContentCollection<DataType>();
         }
     }
 }

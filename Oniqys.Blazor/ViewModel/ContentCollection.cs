@@ -106,5 +106,11 @@ namespace Oniqys.Blazor.ViewModel
 
         protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
             => CollectionChanged?.Invoke(this, args);
+
+        public void AddRange(IEnumerable<T> items)
+        {
+            foreach (var item in items)
+                Add(item);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using Oniqys.Blazor.ViewModel;
 
 namespace Oniqys.Blazor.Controls
@@ -13,14 +14,14 @@ namespace Oniqys.Blazor.Controls
 
         protected bool IsEnabled => DataContext?.Command?.CanExecute ?? DataContext?.IsEnabled ?? true;
 
-        protected void OnClick()
+        protected async Task OnClickAsync()
         {
             if (IsEnabled)
             {
                 var command = DataContext?.Command;
                 if (command != null)
                 {
-                    command.Execute();
+                    await command.ExecuteAsync();
                     StateHasChanged();
                 }
             }

@@ -7,19 +7,9 @@
     <span style="display: inline;">
         @if (DataContext != null)
         {
-            <CheckBox DataContext="@(DataContext as Selectable)" />
-            @if (DataTemplate != null)
-            {
-                <View DataContext="@DataContext.Content">
-                    @DataTemplate(DataContext.Content)
-                </View>
-            }
+            <CheckBox DataContext="@DataContext" />
+            @ChildContent(DataContext)
         }
     </span>
 </div>
 
-
-@code {
-    [Parameter]
-    public RenderFragment<TItem> DataTemplate { get; set; }
-}

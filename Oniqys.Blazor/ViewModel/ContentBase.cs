@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace Oniqys.Blazor.ViewModel
 {
+    /// <summary>
+    /// 変更通知を持つViewModel全ての基底クラス
+    /// </summary>
     public abstract class ContentBase : INotifyPropertyChanged
     {
         protected bool ObjectChangeProcess<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
@@ -22,8 +25,8 @@ namespace Oniqys.Blazor.ViewModel
         {
             if (field.Equals(value)) return false;
 
-            OnPropertyChanged(propertyName);
             field = value;
+            OnPropertyChanged(propertyName);
             return true;
         }
 
@@ -32,8 +35,8 @@ namespace Oniqys.Blazor.ViewModel
         {
             if (EqualityComparer<T>.Default.Equals(field, value)) return false;
 
-            OnPropertyChanged(propertyName);
             field = value;
+            OnPropertyChanged(propertyName);
             return true;
         }
 

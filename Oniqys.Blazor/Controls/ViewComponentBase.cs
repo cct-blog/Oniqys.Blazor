@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Components;
+using Oniqys.Blazor.Core;
+using Oniqys.Blazor.ViewModel;
 
 namespace Oniqys.Blazor.Controls
 {
@@ -7,10 +12,13 @@ namespace Oniqys.Blazor.Controls
     /// MVVMのViewとなるコントロール
     /// </summary>
     public abstract class ViewComponentBase<TViewModel> : ComponentBase
+        where TViewModel : class
     {
         private bool _initialized;
 
         private TViewModel _dataContext;
+
+        private WeakPropertyChangedEvent _propertyChanged;
 
         /// <summary>
         /// ViewModelを取得または設定します。
@@ -19,29 +27,42 @@ namespace Oniqys.Blazor.Controls
         public TViewModel DataContext
         {
             get => _dataContext;
-            set
-            {
-                if (_dataContext is INotifyPropertyChanged oldValue)
-                    oldValue.PropertyChanged -= OnPropertyChanged;
-
-                _dataContext = value;
-                if (_dataContext is INotifyPropertyChanged newValue)
-                    newValue.PropertyChanged += OnPropertyChanged;
-
-                OnPropertyChanged(this, new PropertyChangedEventArgs(nameof(DataContext)));
-            }
+            set => UpdateDataContext(value);
         }
 
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void UpdateDataContext(TViewModel value)
         {
-            if (_initialized)
-                StateHasChanged();
+            if (_propertyChanged != null)
+            {
+                _propertyChanged.Remove();
+                _propertyChanged = null;
+            }
+
+            UpdateValue(ref _dataContext, value);
+            if (_dataContext is ContentBase contentBase)
+            {
+                _propertyChanged = WeakPropertyChangedEvent.Create(contentBase, OnPropertyChanged);
+            }
         }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
             _initialized = true;
+        }
+
+        protected void UpdateValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            field = value;
+            Invalidate();
+        }
+
+        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs _) => Invalidate();
+
+        protected void Invalidate()
+        {
+            if (_initialized)
+                StateHasChanged();
         }
     }
 }
